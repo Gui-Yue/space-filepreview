@@ -12,12 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM debian:experimental
+FROM debian:stable
 
 ENV LANG C.UTF-8
 
 ENV TZ=Asia/Shanghai \
     DEBIAN_FRONTEND=noninteractive
+
+RUN rm -f /etc/apt/apt.conf.d/docker-clean
 
 RUN set -eux; \
 	apt-get update; \
@@ -25,8 +27,8 @@ RUN set -eux; \
 		ca-certificates \
 		netbase \
 		tzdata \
-                gcc g++ python3 python3-pip python3-full python3-dev \
-	; \
+                gcc g++ python3 python3-pip python3-full python3-dev; \
+        apt-get clean;\
 	rm -rf /var/lib/apt/lists/*
 RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime; \
         echo ${TZ} > /etc/timezone; \
