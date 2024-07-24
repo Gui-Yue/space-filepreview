@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM debian:stable
+FROM debian:experimental
 
 ENV LANG C.UTF-8
 
@@ -23,6 +23,7 @@ RUN rm -f /etc/apt/apt.conf.d/docker-clean
 
 RUN set -eux; \
 	apt-get update; \
+        apt-get install -y --no-install-recommends libc6;\
 	apt-get install -y --no-install-recommends \
 		ca-certificates \
 		netbase \
